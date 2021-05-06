@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 
 function Form({ addTodo, edit }) {
   const [input, setInput] = useState("");
@@ -20,14 +21,18 @@ function Form({ addTodo, edit }) {
       <label>
         <input value={input} onChange={handleChange} />
       </label>
-      <button onClick={handleSubmit}>Edit todo</button>
+      <Button variant="primary" onClick={handleSubmit}>
+        Edit todo
+      </Button>
     </form>
   ) : (
     <form onSubmit={handleSubmit}>
       <label>
         <input value={input} onChange={handleChange} />
       </label>
-      <button onClick={handleSubmit}>Add todo</button>
+      <Button variant="primary" onClick={handleSubmit}>
+        Add todo
+      </Button>
     </form>
   );
 }

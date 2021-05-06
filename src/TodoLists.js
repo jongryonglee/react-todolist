@@ -1,5 +1,6 @@
 import Form from "./Form";
 import React, { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 
 function TodoLists() {
   const [todoList, setTodoList] = useState([]);
@@ -8,7 +9,12 @@ function TodoLists() {
     value: "",
   });
   const Checkbox = ({ onClick, defaultChecked }) => (
-    <input type="checkbox" onClick={onClick} defaultChecked={defaultChecked} />
+    <input
+      type="checkbox"
+      class="option-input checkbox"
+      onClick={onClick}
+      defaultChecked={defaultChecked}
+    />
   );
 
   //call todoList from local storage
@@ -77,7 +83,7 @@ function TodoLists() {
   }
 
   return (
-    <>
+    <div className="containerAll">
       <Form addTodo={addTodo} />
 
       {todoList.map((todo, index) => (
@@ -89,22 +95,29 @@ function TodoLists() {
             defaultChecked={todo.isComplete}
           />
 
-          <div key={todo.id}>{todo.text}</div>
+          <div className="list" key={todo.id}>
+            {todo.text}
+          </div>
 
-          <button
+          <Button
+            variant="success"
             onClick={() => {
               setEdit({ id: todo.id, value: todo.text });
             }}
           >
             Edit
-          </button>
+          </Button>
 
-          <button onClick={() => removeTodo(todo.id)} className="removeButton">
+          <Button
+            variant="danger"
+            onClick={() => removeTodo(todo.id)}
+            className="removeButton"
+          >
             X
-          </button>
+          </Button>
         </div>
       ))}
-    </>
+    </div>
   );
 }
 
