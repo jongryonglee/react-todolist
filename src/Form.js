@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, InputGroup, FormControl } from "react-bootstrap";
+import { FcAddRow } from "react-icons/fc";
+import { AiOutlineEnter } from "react-icons/ai";
 
 function Form({ addTodo, edit }) {
   const [input, setInput] = useState("");
@@ -17,23 +19,33 @@ function Form({ addTodo, edit }) {
   };
 
   return edit ? (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <input value={input} onChange={handleChange} />
-      </label>
-      <Button variant="primary" onClick={handleSubmit}>
-        Edit todo
-      </Button>
-    </form>
+    <InputGroup size="lg" className="inputForm" onSubmit={handleSubmit}>
+      <FormControl
+        placeholder="Edit ToDo"
+        aria-label="Edit ToDo"
+        value={input}
+        onChange={handleChange}
+      />
+      <InputGroup.Append>
+        <Button variant="success" onClick={handleSubmit}>
+          <AiOutlineEnter className="svg" />
+        </Button>
+      </InputGroup.Append>
+    </InputGroup>
   ) : (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <input value={input} onChange={handleChange} />
-      </label>
-      <Button variant="primary" onClick={handleSubmit}>
-        Add todo
-      </Button>
-    </form>
+    <InputGroup size="lg" className="inputForm" onSubmit={handleSubmit}>
+      <FormControl
+        placeholder="Add ToDo"
+        aria-label="Add ToDo"
+        value={input}
+        onChange={handleChange}
+      />
+      <InputGroup.Append>
+        <Button variant="primary" onClick={handleSubmit}>
+          <FcAddRow className="addRow" />
+        </Button>
+      </InputGroup.Append>
+    </InputGroup>
   );
 }
 

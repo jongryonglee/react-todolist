@@ -1,6 +1,7 @@
 import Form from "./Form";
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import { AiOutlineEdit, AiFillDelete } from "react-icons/ai";
 
 function TodoLists() {
   const [todoList, setTodoList] = useState([]);
@@ -79,15 +80,63 @@ function TodoLists() {
 
   // call form when edit.id !== null
   if (edit.id) {
-    return <Form edit={edit} addTodo={updateTodo} />;
+    return (
+      <Container className="Container" fluid="sm">
+        <Form edit={edit} addTodo={updateTodo} />
+      </Container>
+    );
   }
 
   return (
-    <div className="containerAll">
+    <Container className="Container" fluid="sm">
       <Form addTodo={addTodo} />
 
       {todoList.map((todo, index) => (
         <div className="container" key={index}>
+          <div className="list-container">
+            <Checkbox
+              onClick={() => {
+                completeTodo(todo.id);
+              }}
+              defaultChecked={todo.isComplete}
+            />
+
+            <div className="list" key={todo.id}>
+              {todo.text}
+            </div>
+          </div>
+
+          <Button
+            variant="success"
+            onClick={() => {
+              setEdit({ id: todo.id, value: todo.text });
+            }}
+          >
+            <AiOutlineEdit className="svg" />
+          </Button>
+
+          <Button
+            variant="danger"
+            onClick={() => removeTodo(todo.id)}
+            className="removeButton"
+            size="lg"
+          >
+            <AiFillDelete className="svg" />
+          </Button>
+        </div>
+      ))}
+    </Container>
+  );
+}
+
+export default TodoLists;
+
+{
+  /* <ListGroup>
+
+{todoList.map((todo, index) => (
+  <ListGroup.Item variant="primary" className="container" key={index}>
+        <div >
           <Checkbox
             onClick={() => {
               completeTodo(todo.id);
@@ -116,9 +165,7 @@ function TodoLists() {
             X
           </Button>
         </div>
+        </ListGroup.Item>
       ))}
-    </div>
-  );
+</ListGroup>; */
 }
-
-export default TodoLists;
